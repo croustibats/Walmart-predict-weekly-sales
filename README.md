@@ -1,130 +1,170 @@
-{
- "cells": [
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "<img src=\"https://www.bestdesigns.co/uploads/inspiration_images/4350/990__1511457498_404_walmart.png\" alt=\"WALMART LOGO\" />\n",
-    "\n",
-    "# Walmart : predict weekly sales\n",
-    "\n",
-    "## Company's Description 📇\n",
-    "\n",
-    "Walmart Inc. is an American multinational retail corporation that operates a chain of hypermarkets, discount department stores, and grocery stores from the United States, headquartered in Bentonville, Arkansas. The company was founded by Sam Walton in 1962.\n",
-    "\n",
-    "## Project 🚧\n",
-    "\n",
-    "Walmart's marketing service has asked you to build a machine learning model able to estimate the weekly sales in their stores, with the best precision possible on the predictions made. Such a model would help them understand better how the sales are influenced by economic indicators, and might be used to plan future marketing campaigns.\n",
-    "\n",
-    "## Goals 🎯\n",
-    "\n",
-    "The project can be divided into three steps:\n",
-    "\n",
-    "- Part 1 : make an EDA and all the necessary preprocessings to prepare data for machine learning\n",
-    "- Part 2 : train a **linear regression model** (baseline)\n",
-    "- Part 3 : avoid overfitting by training a **regularized regression model**\n",
-    "\n",
-    "## Scope of this project 🖼️\n",
-    "\n",
-    "For this project, you'll work with a dataset that contains information about weekly sales achieved by different Walmart stores, and other variables such as the unemployment rate or the fuel price, that might be useful for predicting the amount of sales. The dataset has been taken from a Kaggle competition, but we made some changes compared to the original data. Please make sure that you're using **our** custom dataset (available on JULIE). 🤓"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "## Deliverable 📬\n",
-    "\n",
-    "To complete this project, your team should: \n",
-    "\n",
-    "- Create some visualizations\n",
-    "- Train at least one **linear regression model** on the dataset, that predicts the amount of weekly sales as a function of the other variables\n",
-    "- Assess the performances of the model by using a metric that is relevant for regression problems\n",
-    "- Interpret the coefficients of the model to identify what features are important for the prediction\n",
-    "- Train at least one model with **regularization (Lasso or Ridge)** to reduce overfitting\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "## Helpers 🦮\n",
-    "\n",
-    "To help you achieve this project, here are a few tips that should help you: \n",
-    "\n",
-    "### Part 1 : EDA and data preprocessing\n",
-    "\n",
-    "Start your project by exploring your dataset : create figures, compute some statistics etc...\n",
-    "\n",
-    "Then, you'll have to make some preprocessing on the dataset. You can follow the guidelines from the *preprocessing template*. There will also be some specific transformations to be planned on this dataset, for example on the *Date* column that can't be included as it is in the model. Below are some hints that might help you 🤓\n",
-    "\n",
-    " #### Preprocessing to be planned with pandas\n",
-    "\n",
-    " **Drop lines where target values are missing :**\n",
-    " - Here, the target variable (Y) corresponds to the column *Weekly_Sales*. One can see above that there are some missing values in this column.\n",
-    " - We never use imputation techniques on the target : it might create some bias in the predictions !\n",
-    " - Then, we will just drop the lines in the dataset for which the value in *Weekly_Sales* is missing.\n",
-    " \n",
-    "**Create usable features from the *Date* column :**\n",
-    "The *Date* column cannot be included as it is in the model. Either you can drop this column, or you will create new columns that contain the following numeric features : \n",
-    "- *year*\n",
-    "- *month*\n",
-    "- *day*\n",
-    "- *day of week*\n",
-    "\n",
-    "**Drop lines containing invalid values or outliers :**\n",
-    "In this project, will be considered as outliers all the numeric features that don't fall within the range : $[\\bar{X} - 3\\sigma, \\bar{X} + 3\\sigma]$. This concerns the columns : *Temperature*, *Fuel_price*, *CPI* and *Unemployment*\n",
-    " \n",
-    "\n",
-    "\n",
-    "**Target variable/target (Y) that we will try to predict, to separate from the others** : *Weekly_Sales*\n",
-    "\n",
-    " **------------**\n",
-    "\n",
-    " #### Preprocessings to be planned with scikit-learn\n",
-    "\n",
-    " **Explanatory variables (X)**\n",
-    "We need to identify which columns contain categorical variables and which columns contain numerical variables, as they will be treated differently.\n",
-    "\n",
-    " - Categorical variables : Store, Holiday_Flag\n",
-    " - Numerical variables : Temperature, Fuel_Price, CPI, Unemployment, Year, Month, Day, DayOfWeek\n",
-    "\n",
-    "### Part 2 : Baseline model (linear regression)\n",
-    "Once you've trained a first model, don't forget to assess its performances on the train and test sets. Are you satisfied with the results ?\n",
-    "Besides, it would be interesting to analyze the values of the model's coefficients to know what features are important for the prediction. To do so, the `.coef_` attribute of scikit-learn's LinearRegression class might be useful. Please refer to the following link for more information 😉 https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html\n",
-    "\n",
-    "### Part 3 : Fight overfitting\n",
-    "In this last part, you'll have to train a **regularized linear regression model**. You'll find below some useful classes in scikit-learn's documentation :\n",
-    "- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge\n",
-    "- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso\n",
-    "\n",
-    "**Bonus question**\n",
-    "\n",
-    "In regularized regression models, there's a hyperparameter called *the regularization strength* that can be fine-tuned to get the best generalized predictions on a given dataset. This fine-tuning can be done thanks to scikit-learn's GridSearchCV class : https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html\n",
-    "\n",
-    "Also, you'll find here some examples of how to use GridSearchCV together with Ridge or Lasso models : https://alfurka.github.io/2018-11-18-grid-search/"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.8.8"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 4
-}
+---
+jupyter:
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+  language_info:
+    codemirror_mode:
+      name: ipython
+      version: 3
+    file_extension: .py
+    mimetype: text/x-python
+    name: python
+    nbconvert_exporter: python
+    pygments_lexer: ipython3
+    version: 3.8.8
+  nbformat: 4
+  nbformat_minor: 4
+---
+
+::: {.cell .markdown}
+`<img src="https://www.bestdesigns.co/uploads/inspiration_images/4350/990__1511457498_404_walmart.png" alt="WALMART LOGO" />`{=html}
+
+# Walmart : predict weekly sales {#walmart--predict-weekly-sales}
+
+## Company\'s Description 📇 {#companys-description-}
+
+Walmart Inc. is an American multinational retail corporation that
+operates a chain of hypermarkets, discount department stores, and
+grocery stores from the United States, headquartered in Bentonville,
+Arkansas. The company was founded by Sam Walton in 1962.
+
+## Project 🚧 {#project-}
+
+Walmart\'s marketing service has asked you to build a machine learning
+model able to estimate the weekly sales in their stores, with the best
+precision possible on the predictions made. Such a model would help them
+understand better how the sales are influenced by economic indicators,
+and might be used to plan future marketing campaigns.
+
+## Goals 🎯 {#goals-}
+
+The project can be divided into three steps:
+
+-   Part 1 : make an EDA and all the necessary preprocessings to prepare
+    data for machine learning
+-   Part 2 : train a **linear regression model** (baseline)
+-   Part 3 : avoid overfitting by training a **regularized regression
+    model**
+
+## Scope of this project 🖼️ {#scope-of-this-project-️}
+
+For this project, you\'ll work with a dataset that contains information
+about weekly sales achieved by different Walmart stores, and other
+variables such as the unemployment rate or the fuel price, that might be
+useful for predicting the amount of sales. The dataset has been taken
+from a Kaggle competition, but we made some changes compared to the
+original data. Please make sure that you\'re using **our** custom
+dataset (available on JULIE). 🤓
+:::
+
+::: {.cell .markdown}
+## Deliverable 📬 {#deliverable-}
+
+To complete this project, your team should:
+
+-   Create some visualizations
+-   Train at least one **linear regression model** on the dataset, that
+    predicts the amount of weekly sales as a function of the other
+    variables
+-   Assess the performances of the model by using a metric that is
+    relevant for regression problems
+-   Interpret the coefficients of the model to identify what features
+    are important for the prediction
+-   Train at least one model with **regularization (Lasso or Ridge)** to
+    reduce overfitting
+:::
+
+::: {.cell .markdown}
+## Helpers 🦮 {#helpers-}
+
+To help you achieve this project, here are a few tips that should help
+you:
+
+### Part 1 : EDA and data preprocessing {#part-1--eda-and-data-preprocessing}
+
+Start your project by exploring your dataset : create figures, compute
+some statistics etc\...
+
+Then, you\'ll have to make some preprocessing on the dataset. You can
+follow the guidelines from the *preprocessing template*. There will also
+be some specific transformations to be planned on this dataset, for
+example on the *Date* column that can\'t be included as it is in the
+model. Below are some hints that might help you 🤓
+
+\#\#\#\# Preprocessing to be planned with pandas
+
+**Drop lines where target values are missing :**
+
+-   Here, the target variable (Y) corresponds to the column
+    *Weekly_Sales*. One can see above that there are some missing values
+    in this column.
+-   We never use imputation techniques on the target : it might create
+    some bias in the predictions !
+-   Then, we will just drop the lines in the dataset for which the value
+    in *Weekly_Sales* is missing.
+
+**Create usable features from the *Date* column :** The *Date* column
+cannot be included as it is in the model. Either you can drop this
+column, or you will create new columns that contain the following
+numeric features :
+
+-   *year*
+-   *month*
+-   *day*
+-   *day of week*
+
+**Drop lines containing invalid values or outliers :** In this project,
+will be considered as outliers all the numeric features that don\'t fall
+within the range : $[\bar{X} - 3\sigma, \bar{X} + 3\sigma]$. This
+concerns the columns : *Temperature*, *Fuel_price*, *CPI* and
+*Unemployment*
+
+**Target variable/target (Y) that we will try to predict, to separate
+from the others** : *Weekly_Sales*
+
+**\-\-\-\-\-\-\-\-\-\-\--**
+
+\#\#\#\# Preprocessings to be planned with scikit-learn
+
+**Explanatory variables (X)** We need to identify which columns contain
+categorical variables and which columns contain numerical variables, as
+they will be treated differently.
+
+-   Categorical variables : Store, Holiday_Flag
+-   Numerical variables : Temperature, Fuel_Price, CPI, Unemployment,
+    Year, Month, Day, DayOfWeek
+
+### Part 2 : Baseline model (linear regression) {#part-2--baseline-model-linear-regression}
+
+Once you\'ve trained a first model, don\'t forget to assess its
+performances on the train and test sets. Are you satisfied with the
+results ? Besides, it would be interesting to analyze the values of the
+model\'s coefficients to know what features are important for the
+prediction. To do so, the `.coef_` attribute of scikit-learn\'s
+LinearRegression class might be useful. Please refer to the following
+link for more information 😉
+<https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html>
+
+### Part 3 : Fight overfitting {#part-3--fight-overfitting}
+
+In this last part, you\'ll have to train a **regularized linear
+regression model**. You\'ll find below some useful classes in
+scikit-learn\'s documentation :
+
+-   <https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge>
+-   <https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso>
+
+**Bonus question**
+
+In regularized regression models, there\'s a hyperparameter called *the
+regularization strength* that can be fine-tuned to get the best
+generalized predictions on a given dataset. This fine-tuning can be done
+thanks to scikit-learn\'s GridSearchCV class :
+<https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html>
+
+Also, you\'ll find here some examples of how to use GridSearchCV
+together with Ridge or Lasso models :
+<https://alfurka.github.io/2018-11-18-grid-search/>
+:::
